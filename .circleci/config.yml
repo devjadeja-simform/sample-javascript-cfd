@@ -15,28 +15,28 @@ orbs:
   # cypress: cypress-io/cypress@3.3.1
   custom-orb: devjadeja-simform/custom-orb@dev:alpha
 
-jobs:
-  # Below is the definition of your job to test your Node app. You can rename and customize it as you want.
-  code-checkout:
-    # These next lines define a docker executor: https://circleci.com/docs/2.0/executor-types/
-    # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # A list of available CircleCI docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/node
-    docker:
-      - image: cimg/node:18.18
-    # Then run your tests!
-    # CircleCI will report the results back to your VCS provider.
-    steps:
-      # Checkout the code as the first step.
-      - checkout
-      - attach_workspace:
-          at: ~/project
-      - run:
-          name: Check source code
-          command: ls -lha ~/project
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - "*"
+# jobs:
+#   # Below is the definition of your job to test your Node app. You can rename and customize it as you want.
+#   code-checkout:
+#     # These next lines define a docker executor: https://circleci.com/docs/2.0/executor-types/
+#     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+#     # A list of available CircleCI docker Convenience Images are available here: https://circleci.com/developer/images/image/cimg/node
+#     docker:
+#       - image: cimg/node:18.18
+#     # Then run your tests!
+#     # CircleCI will report the results back to your VCS provider.
+#     steps:
+#       # Checkout the code as the first step.
+#       - checkout
+#       - attach_workspace:
+#           at: ~/project
+#       - run:
+#           name: Check source code
+#           command: ls -lha ~/project
+#       - persist_to_workspace:
+#           root: ~/project
+#           paths:
+#             - "*"
 
 
 workflows:
@@ -46,25 +46,10 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   Yarn Workflow:
     jobs:
-      - code-checkout:
-          name: Checkout code
-      - custom-orb/yarn_dependencies:
-          name: Install Dependencies
-          requires:
-            - Checkout code
-      - custom-orb/yarn_lint:
-          name: Linting
-          requires:
-            - Install Dependencies
-      - custom-orb/yarn_tests:
-          name: Running Tests
-          requires:
-            - Install Dependencies
-      - custom-orb/yarn_build:
-          name: Building
-          requires:
-            - Linting
-            - Running Tests
+      - custom-orb/yarn:
+          name: Yarn Workflow
+          # create_distributable_build: true
+          # save_artifacts: true
 
       # - test
       # - cypress/run:
