@@ -48,8 +48,8 @@ workflows:
     jobs:
       - custom-orb/yarn:
           name: Yarn Workflow
-          # create_distributable_build: true
-          # save_artifacts: true
+          create_distributable_build: true
+          save_artifacts: true
 
       # - test
       # - cypress/run:
