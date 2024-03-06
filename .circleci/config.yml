@@ -56,10 +56,6 @@ workflows:
           name: Linting
           requires:
             - Install Dependencies
-          pre-steps:
-            - run:
-                name: Update Browserslist
-                command: npx update-browserslist-db@latest
       - custom-orb/yarn_tests:
           name: Running Tests
           requires:
