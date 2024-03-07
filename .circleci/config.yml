@@ -71,7 +71,7 @@ workflows:
       - code-checkout
       - custom-orb/yarn:
           name: Yarn Workflow
-          prj_path: node_proj
+          prj_path: "node_proj/"
           create_distributable_build: true
           save_artifacts: true
           requires:
