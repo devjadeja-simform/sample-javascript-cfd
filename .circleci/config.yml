@@ -38,26 +38,26 @@ orbs:
 #           paths:
 #             - "*"
 
-jobs: 
-  yarn-job:
-    docker:
-      - image: cimg/node:18.18
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/project
-      - custom-orb/yarn:
-          script_command: install
-      - custom-orb/yarn:
-          script_command: lint
-      - custom-orb/yarn:
-          script_command: test:unit
-      - custom-orb/yarn_build:
-          save_artifacts: true
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - '*'
+# jobs: 
+#   yarn-job:
+#     docker:
+#       - image: cimg/node:18.18
+#     steps:
+#       - checkout
+#       - attach_workspace:
+#           at: ~/project
+#       - custom-orb/yarn:
+#           script_command: install
+#       - custom-orb/yarn:
+#           script_command: lint
+#       - custom-orb/yarn:
+#           script_command: test:unit
+#       - custom-orb/yarn_build:
+#           save_artifacts: true
+#       - persist_to_workspace:
+#           root: ~/project
+#           paths:
+#             - '*'
       
       
 
@@ -68,12 +68,13 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   Yarn Workflow:
     jobs:
-      # - custom-orb/yarn:
-      #     name: Yarn Workflow
-      #     create_distributable_build: true
-      #     save_artifacts: true
-      - yarn-job:
-          name: Yarn Job
+      - custom-orb/yarn:
+          name: Yarn Workflow
+          prj_path: node_proj
+          create_distributable_build: true
+          save_artifacts: true
+      # - yarn-job:
+      #     name: Yarn Job
 
       # - test
       # - cypress/run:
