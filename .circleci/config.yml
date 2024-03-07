@@ -68,6 +68,7 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   Yarn Workflow:
     jobs:
+      - code-checkout
       - custom-orb/yarn:
           name: Yarn Workflow
           prj_path: node_proj
